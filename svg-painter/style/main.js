@@ -135,24 +135,19 @@ $(document).ready(function() {
 		el.hover(function() {
 			this.attr({
 				stroke: "yellow",
-				"stroke-width": 5
 			});
 		}, function() {
 			this.attr({
 				stroke: "#FFF",
-				"stroke-width": 1
 			});
-		});
-		el.click(function(event) {
-			this.attr({
-				stroke: "yellow"
-			})
-			this.unhover();
 		});
 	};
 
 	function drowRect() {
 		$('.svg4').off(); //解除所有绑定事件
+		paper.forEach(function(el) {
+			el.unhover().undrag()
+		});
 		$('.svg4').on("mousedown", function(event) {
 			var x = event.clientX;
 			var y = event.clientY;
@@ -160,9 +155,6 @@ $(document).ready(function() {
 				stroke: '#FFF'
 			});
 			elHover(c);
-			$('.svg4').on("click", function(e) {
-
-			})
 			$('.svg4').on("mousemove", function(event) {
 				var x2, y2;
 				event.clientX < x ? x2 = event.clientX : x;
@@ -184,6 +176,9 @@ $(document).ready(function() {
 
 	function drowCircle() {
 		$('.svg4').off(); //解除所有绑定事件
+		paper.forEach(function(el) {
+			el.unhover().undrag()
+		});
 		$('.svg4').on("mousedown", function(event) {
 			var x = event.clientX;
 			var y = event.clientY;
@@ -217,12 +212,16 @@ $(document).ready(function() {
 
 	function drowLine() {
 		$('.svg4').off(); //解除所有绑定事件
+		paper.forEach(function(el) {
+			el.unhover().undrag()
+		});
 		$('.svg4').on("mousedown", function(event) {
 			var x = event.clientX;
 			var y = event.clientY;
 			var c = paper.path("M" + x + " " + y).attr({
 				fill: '#FFF',
-				stroke: '#FFF'
+				stroke: '#FFF',
+				"stroke-width": 5
 			});
 			c.hover(function() {
 				this.attr({
@@ -233,12 +232,32 @@ $(document).ready(function() {
 					stroke: "#FFF"
 				})
 			});
+
+
 			$('.svg4').on("mousemove", function(event) {
 				c.attr('path', "M" + x + " " + y + "L" + event.clientX + " " + event.clientY);
 			})
 		})
 		$('.svg4').on("mouseup", function() {
 			$('.svg4').off("mousemove");
+		});
+	};
+
+	function drowDrag() {
+		$('.svg4').off();
+		var x1 = 0,
+			y1 = 0;
+		paper.forEach(function(el) {
+			el.drag(function(x, y, dx, dy) {
+				this.transform("t" +
+					(x2 + x) + "," +
+					(y2 + y));
+				x1 = x2 + x;
+				y1 = y2 + y;
+			}, function() {
+				x2 = x1;
+				y2 = y1;
+			})
 		});
 	};
 	$("input").on('click', function(e) {
@@ -255,6 +274,9 @@ $(document).ready(function() {
 				break;
 			case "clean":
 				paper.clear();
+				break;
+			case "drag":
+				drowDrag();
 				break;
 		}
 	});
