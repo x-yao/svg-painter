@@ -1,0 +1,38 @@
+
+/*path{
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  -webkit-animation: dash 2s  ease-in-out forwards;
+}
+@-webkit-keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}*/
+svg{
+	background: #CCC;
+}
+svg path,circle,rect{
+	-webkit-transition:all .4s ease-in-out;
+}
+.svg{
+	display: inline-block;
+}
+.svg1{
+	margin: 0 auto;
+	width: 320px;
+	height: 320px;
+}
+.svg2{
+	margin: 0 auto;
+	width: 320px;
+	height: 320px;
+}
+.svg3{
+	margin: 0 auto;
+	width: 320px;
+	height: 320px;
+}
+.svg3 svg{
+	background: #FFF;
+}
