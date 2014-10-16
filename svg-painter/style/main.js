@@ -152,9 +152,9 @@ $(document).ready(function() {
 			var x = event.clientX;
 			var y = event.clientY;
 			var c = paper.rect(x, y, 0, 0).attr({
-				stroke: '#FFF'
+				stroke: '#FFF',
+				"stroke-width": 5
 			});
-			elHover(c);
 			$('.svg4').on("mousemove", function(event) {
 				var x2, y2;
 				event.clientX < x ? x2 = event.clientX : x;
@@ -183,16 +183,8 @@ $(document).ready(function() {
 			var x = event.clientX;
 			var y = event.clientY;
 			var c = paper.circle(x, y, 0).attr({
-				stroke: '#FFF'
-			});
-			c.hover(function() {
-				this.attr({
-					stroke: "yellow"
-				})
-			}, function() {
-				this.attr({
-					stroke: "#FFF"
-				})
+				stroke: '#FFF',
+				"stroke-width": 5
 			});
 			$('.svg4').on("mousemove", function(event) {
 				var x2 = (event.clientX + x) / 2;
@@ -223,17 +215,6 @@ $(document).ready(function() {
 				stroke: '#FFF',
 				"stroke-width": 5
 			});
-			c.hover(function() {
-				this.attr({
-					stroke: "yellow"
-				})
-			}, function() {
-				this.attr({
-					stroke: "#FFF"
-				})
-			});
-
-
 			$('.svg4').on("mousemove", function(event) {
 				c.attr('path', "M" + x + " " + y + "L" + event.clientX + " " + event.clientY);
 			})
@@ -242,19 +223,47 @@ $(document).ready(function() {
 			$('.svg4').off("mousemove");
 		});
 	};
+	function drowBezier () {
+		$('.svg4').off(); //解除所有绑定事件
+		paper.forEach(function(el) {
+			el.unhover().undrag()
+		});
+		var flag = 0;
+		var sx,sy;
+		$('.svg4').on("mousedown", function(event) {
+			if (flag == 0) {
+				sx = event.clientX;
+				sy = event.clientY;
+				var c = paper.path("M" + x + " " + y).attr({
+					fill: '#FFF',
+					stroke: '#FFF',
+					"stroke-width": 5
+				});
+			};
+			var x = event.clientX;
+			var y = event.clientY;
+			flag = flag+1;
+		})
+		$('.svg4').on("mouseup", function() {
+			$('.svg4').off("mousemove");
+		});
 
+	};
 	function drowDrag() {
 		$('.svg4').off();
-		var x1 = 0,
-			y1 = 0;
 		paper.forEach(function(el) {
+			elHover(el);
+			var x1 = 0,
+			y1 = 0
+			,d1 = 0;
+			var x2 = el["_"].dx,y2 = el["_"].dy,d = el["_"].deg;
 			el.drag(function(x, y, dx, dy) {
 				this.transform("t" +
 					(x2 + x) + "," +
-					(y2 + y));
+					(y2 + y)+"r"+d);
 				x1 = x2 + x;
 				y1 = y2 + y;
-			}, function() {
+			}, function(){},function() {
 				x2 = x1;
 				y2 = y1;
 			})
@@ -271,6 +280,9 @@ $(document).ready(function() {
 				break;
 			case "drowRect":
 				drowRect();
+				break;
+			case "drowBezier":
+				drowBezier();
 				break;
 			case "clean":
 				paper.clear();
