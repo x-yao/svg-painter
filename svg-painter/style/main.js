@@ -223,47 +223,59 @@ $(document).ready(function() {
 			$('.svg4').off("mousemove");
 		});
 	};
-	function drowBezier () {
+
+	function drowBezier() {
 		$('.svg4').off(); //解除所有绑定事件
 		paper.forEach(function(el) {
 			el.unhover().undrag()
 		});
 		var flag = 0;
-		var sx,sy;
+		var sx, sy, c,sc;
 		$('.svg4').on("mousedown", function(event) {
 			if (flag == 0) {
 				sx = event.clientX;
 				sy = event.clientY;
-				var c = paper.path("M" + x + " " + y).attr({
-					fill: '#FFF',
+				c = paper.path("M" + sx + " " + sx).attr({
 					stroke: '#FFF',
 					"stroke-width": 5
 				});
+				sc = paper.circle(sx,sy,4).attr({
+					fill: '#FFF',
+					stroke: '#FFF'
+				});
+			} else {
+				var x = event.clientX;
+				var y = event.clientY;
+				sc.remove();
+				$('.svg4').on("mousemove", function(event) {
+					c.attr('path', "M" + sx + " " + sy + "C" + (2 * x - event.clientX) + "," + (2 * y - event.clientY) + " " + (2 * x - event.clientX) + "," + (2 * y - event.clientY) + " " + x + "," + y);
+				});
 			};
-			var x = event.clientX;
-			var y = event.clientY;
-			flag = flag+1;
+			flag = flag + 1;
 		})
 		$('.svg4').on("mouseup", function() {
 			$('.svg4').off("mousemove");
 		});
 
 	};
+
 	function drowDrag() {
 		$('.svg4').off();
 		paper.forEach(function(el) {
 			elHover(el);
 			var x1 = 0,
-			y1 = 0
-			,d1 = 0;
-			var x2 = el["_"].dx,y2 = el["_"].dy,d = el["_"].deg;
+				y1 = 0,
+				d1 = 0;
+			var x2 = el["_"].dx,
+				y2 = el["_"].dy,
+				d = el["_"].deg;
 			el.drag(function(x, y, dx, dy) {
 				this.transform("t" +
 					(x2 + x) + "," +
-					(y2 + y)+"r"+d);
+					(y2 + y) + "r" + d);
 				x1 = x2 + x;
 				y1 = y2 + y;
-			}, function(){},function() {
+			}, function() {}, function() {
 				x2 = x1;
 				y2 = y1;
 			})
