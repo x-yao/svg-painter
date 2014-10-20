@@ -276,7 +276,12 @@ $(document).ready(function() {
 		});
 
 	};
+	function consultLine(){
 
+	};
+	function del(){
+
+	};
 	function drowDrag() {
 		$('.svg4').off();
 		paper.forEach(function(el) {
@@ -316,6 +321,9 @@ $(document).ready(function() {
 				break;
 			case "clean":
 				paper.clear();
+				break;
+			case "del":
+				del();
 				break;
 			case "drag":
 				drowDrag();
