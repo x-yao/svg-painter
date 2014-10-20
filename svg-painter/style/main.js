@@ -230,7 +230,7 @@ $(document).ready(function() {
 			el.unhover().undrag()
 		});
 		var flag = 0;
-		var sx, sy, c,sc;
+		var sx, sy, c,sc,epx,epy,epxt,epyt,epath,epatht;
 		$('.svg4').on("mousedown", function(event) {
 			if (flag == 0) {
 				sx = event.clientX;
@@ -243,18 +243,36 @@ $(document).ready(function() {
 					fill: '#FFF',
 					stroke: '#FFF'
 				});
-			} else {
+			} else if(flag == 1 ) {
 				var x = event.clientX;
 				var y = event.clientY;
 				sc.remove();
 				$('.svg4').on("mousemove", function(event) {
-					c.attr('path', "M" + sx + " " + sy + "C" + (2 * x - event.clientX) + "," + (2 * y - event.clientY) + " " + (2 * x - event.clientX) + "," + (2 * y - event.clientY) + " " + x + "," + y);
+				epath = "M" + sx + " " + sy + "C" + (2 * x - event.clientX) + "," + (2 * y - event.clientY) + " " + (2 * x - event.clientX) + "," + (2 * y - event.clientY) + " " + x + "," + y;
+				epx = event.clientX;
+				epy = event.clientY;
+					c.attr('path',epath);
 				});
-			};
+			}else {
+				var x = event.clientX;
+				var y = event.clientY;
+				sc.remove();
+				$('.svg4').on("mousemove", function(event) {
+				epatht = epath + "C" + epx+","+epy+" "+(2 * x - event.clientX) + "," + (2 * y - event.clientY) + " " +x + "," + y;
+				epxt = event.clientX;
+				epyt = event.clientY;
+					c.attr('path',epatht);
+				});
+			}
 			flag = flag + 1;
 		})
 		$('.svg4').on("mouseup", function() {
 			$('.svg4').off("mousemove");
+			if (flag > 2) {
+				epx = epxt;
+				epy = epyt;
+				epath = epatht;
+			};
 		});
 
 	};
