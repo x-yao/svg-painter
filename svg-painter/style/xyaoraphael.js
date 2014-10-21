@@ -2,7 +2,7 @@
 	Raphael.prototype.radius = function(x, y, l, h, c1, c2, c3, c4) {
 		var x2 = x + l,
 			y2 = y + h,
-			r1 = c1,
+			r1 = c1 || 0,
 			r2 = c2 ? c2 : c1,
 			r3 = c3 ? c3 : c1,
 			r4 = c4 ? c4 : (c2 ? c2 : c1); //四个角圆角角度设置

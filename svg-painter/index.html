@@ -14,12 +14,19 @@
         <div class="svg svg2" id="svg1"></div>
         <div class="svg svg3" id="svg3"></div> -->
         <div class="svg svg4" id="svg4"></div>
-        <input type="button" name="drowCircle" value="circle" class="circle">
-        <input type="button" name="drowRect" value="rect" class="rect">
-        <input type="button" name="drowLine" value="line" class="line">
-        <input type="button" name="clean" value="clean" class="clean">
-        <input type="button" name="drag" value="drag" class="drag">
-        <input type="button" name="drowBezier" value="drowBezier" class="drowBezier">
-        <input type="button" name="del" value="del" class="del">
+        <div class="data">
+            <div class="fill colorSelector"></div>
+            <input type="text" name="fill" value="#CCC" class="fill dispalyNone">
+            <div class="stroke colorSelector"></div>
+            <input type="text" name="stroke" value="#CCC" class="stroke dispalyNone">
+            <label for="strokeWidth">线条宽度：</label><input type="text" name="strokeWidth" value="" placeholder="" class="strokeWidth">
+        </div>
+        <input type="button" name="drowCircle" value="circle" class="circle drow_input">
+        <input type="button" name="drowRect" value="rect" class="rect drow_input">
+        <input type="button" name="drowLine" value="line" class="line drow_input">
+        <input type="button" name="clean" value="clean" class="clean drow_input">
+        <input type="button" name="drag" value="drag" class="drag drow_input">
+        <input type="button" name="drowBezier" value="drowBezier" class="drowBezier drow_input">
+        <input type="button" name="del" value="del" class="del drow_input">
     </body>
 </html>

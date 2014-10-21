@@ -10,7 +10,7 @@
   }
 }*/
 svg{
-	background: #CCC;
+	border:1px solid #CCC;
 }
 svg path,circle,rect{
 	-webkit-transition:all .4s ease-in-out;
@@ -35,4 +35,19 @@ svg path,circle,rect{
 }
 .svg3 svg{
 	background: #FFF;
+}
+.dispalyNone{
+	display: none;
+}
+.data{
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+.colorSelector{
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background: #CCC;
+	border: 1px solid #CCC;
 }
