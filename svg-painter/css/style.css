@@ -9,14 +9,20 @@
     stroke-dashoffset: 0;
   }
 }*/
-svg{
+.svg4{
 	border:1px solid #CCC;
 }
-svg path,circle,rect{
+.svg5{
+	border:1px solid #CCC;
+}
+.svg4 svg path,circle,rect{
 	-webkit-transition:all .4s ease-in-out;
 }
 .svg{
 	display: inline-block;
+}
+svg{
+	shape-rendering:optimizeSpeed;
 }
 .svg1{
 	margin: 0 auto;
@@ -46,6 +52,7 @@ svg path,circle,rect{
 }
 .colorSelector{
 	display: inline-block;
+	position: relative;
 	width: 30px;
 	height: 30px;
 	background: #CCC;

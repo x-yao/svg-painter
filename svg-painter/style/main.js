@@ -4,13 +4,11 @@ $(document).ready(function() {
 	function elHover(el) {
 		el.hover(function() {
 			this.attr({
-				stroke: "yellow",
-				fill : "yellow"
+				stroke: "yellow"
 			});
 		}, function() {
 			this.attr({
-				stroke: el.data("stroke"),
-				fill : el.data("fill")
+				stroke: el.data("stroke")
 			});
 		});
 	};
@@ -178,7 +176,7 @@ $(document).ready(function() {
 		var stroke = $("input.stroke").val();
 		var strokeWidth = $("input.strokeWidth").val();
 		var data = {
-			"fill" : fill,
+			"fill" : fill||null,
 			"stroke" : stroke,
 			"strokeWidth" : strokeWidth
 		}
@@ -263,5 +261,7 @@ $(document).ready(function() {
 			}
 		});
 	}
+	colorSelector();
 	drowBtn();
+	inputView();
 });
