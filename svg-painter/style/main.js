@@ -13,7 +13,8 @@ $(document).ready(function() {
 		});
 	};
 	function drowReset(){
-		$('.svg4').off(); //解除所有绑定事件
+		$('.svg4').off(); 
+		$(document).off();//解除所有绑定事件
 		paper.forEach(function(el) {
 			el.unhover().undrag();
 			el.attr({
@@ -174,7 +175,7 @@ $(document).ready(function() {
 	function getData() {
 		var fill = $("input.fill").val();
 		var stroke = $("input.stroke").val();
-		var strokeWidth = $("input.strokeWidth").val();
+		var strokeWidth = strokeWidthNum||1;
 		var data = {
 			"fill" : fill||null,
 			"stroke" : stroke,
@@ -204,7 +205,7 @@ $(document).ready(function() {
 				paper.forEach(function(el) {
 					if (el.data("click") == true) {
 						el.remove();
-					};
+					}
 				})
 			}
 		});
@@ -261,7 +262,8 @@ $(document).ready(function() {
 			}
 		});
 	}
-	colorSelector();
+	// colorSelector();
 	drowBtn();
 	inputView();
+	// drowReset();
 });

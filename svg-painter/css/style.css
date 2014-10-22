@@ -12,11 +12,13 @@
 .svg4{
 	border:1px solid #CCC;
 }
-.svg5{
-	border:1px solid #CCC;
-}
 .svg4 svg path,circle,rect{
 	-webkit-transition:all .4s ease-in-out;
+}
+.svg6{
+	position: absolute;
+	left: 618px;
+	top: 359px;
 }
 .svg{
 	display: inline-block;
