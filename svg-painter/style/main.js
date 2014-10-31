@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var paper = Raphael($('.svg4')[0], 600, 600);
-
+	// var strokeWidthNum;
 	function elHover(el) {
 		el.hover(function() {
 			this.attr({
@@ -75,7 +75,9 @@ $(document).ready(function() {
 			$('.svg4').on("mousemove", function(event) {
 				var x2 = (event.clientX + x) / 2;
 				var y2 = (event.clientY + y) / 2;
-				var r = Math.abs(event.clientX - x) / 2;
+				var dx = event.clientX - x,
+					dy = event.clientY - y;
+				var r = Math.abs(Math.sqrt(dx*dx+dy*dy)) / 2;
 				c.attr({
 					cx: x2,
 					cy: y2,
@@ -173,14 +175,14 @@ $(document).ready(function() {
 
 	};
 	function getData() {
-		var fill = $("input.fill").val();
-		var stroke = $("input.stroke").val();
-		var strokeWidth = strokeWidthNum||1;
+		var fill = typeof fillColor !== "undefined" && fillColor !== null ? fillColor: null;
+		var stroke = typeof strokeColor !== "undefined" && strokeColor !== null ? strokeColor: "#CCC";
+		var strokeWidth = typeof strokeWidthNum !== "undefined" && strokeWidthNum !== null ? strokeWidthNum: 1;
 		var data = {
-			"fill" : fill||null,
-			"stroke" : stroke,
+			"fill" : fill == "null" ? null : fill,
+			"stroke" : stroke == "null" ? null : stroke,
 			"strokeWidth" : strokeWidth
-		}
+			}
 		return data
 	};
 	function del() {
@@ -262,8 +264,6 @@ $(document).ready(function() {
 			}
 		});
 	}
-	// colorSelector();
 	drowBtn();
 	inputView();
-	// drowReset();
 });

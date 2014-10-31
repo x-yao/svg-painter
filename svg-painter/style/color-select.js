@@ -8,12 +8,11 @@
 		// var paperC = Raphael($('.svg6')[0], 210, 160);
 		// var bac = paperC.rect(0, 100, 200, 51).attr('stroke', '#999');
 		// var bac2 = paperC.rect(0, 0, 200, 85).attr('stroke', '#FFF');
-		var strokeLabel = paperC.text(50, 140, "线条颜色").attr('fill', '#999');
-		var fillLabel = paperC.text(135, 140, "填充颜色").attr('fill', '#999');
+		var strokeLabel = paperC.text(50, 90, "线条颜色").attr('fill', '#999');
+		var fillLabel = paperC.text(135, 90, "填充颜色").attr('fill', '#999');
 		var colorBtn = paperC.set();
-
-		var strokeInput,strokeInput = paperC.rect(37, 110, 20, 20).attr('fill', '#CCC');
-		var fillInput = paperC.rect(127, 110, 20, 20).attr('fill', '#CCC');
+		var strokeInput = paperC.rect(37, 60, 20, 20).attr('fill', '#CCC').data('uiType','stroke');
+		var fillInput = paperC.rect(127, 60, 20, 20).attr('fill', '#CCC').data('uiType','fill');
 		colorBtn.push(strokeInput,fillInput);
 		colorBtn.hover(function() {
 			this.attr({
@@ -24,8 +23,12 @@
 				stroke : "#000"
 			})
 		});
+		var colorType;
+		var glow;
 		colorBtn.click(function(event) {
-			this.glow({color:'#3366FF',width:5});
+			glow ? glow.remove() : "";
+			glow = this.glow({color:'#3366FF',width:5});
+			colorType = this.data('uiType');
 		});
 		paperC.setStart()
 		$.each(colors, function(index, val) {
@@ -49,6 +52,7 @@
 		paperC.path("M180,65L195,80");
 		var colorBox = paperC.setFinish();
 		// colorBox.hide();
+		colorBox.transform('...t0,100')
 		colorBox.hover(function() {
 			this.attr({
 				'opacity': 1,
@@ -62,11 +66,21 @@
 				'height': 15
 			});
 		});
+		colorBox.click(function(event) {
+			var color = this.data('color') ? this.data('color') : null;
+			if(colorType == 'stroke'){
+				strokeInput.attr('fill', color);
+				strokeColor = color;
+			}else if(colorType == 'fill'){
+				fillInput.attr('fill', color);
+				fillColor = color;
+			}
+		});
 	};
 
 	function inputView() {
 		var paperI = Raphael($('.svg5')[0], 200, 200);
-		var bac = paperI.rect(0, -1, 200, 101).attr({
+		var bac = paperI.rect(0, 0, 200, 200).attr({
 			fill: "#FFF",
 			stroke: "#999"
 		});
@@ -76,7 +90,6 @@
 			"stroke-width": 2,
 			opacity: 1
 		});
-		debugger
 		colorSelector(paperI);
 		var inputLabel = paperI.text(50, 30, "线条宽度").attr('fill', '#999');
 		// var strokeLabel = paperI.text(50, 55, "线条颜色").attr('fill', '#999');
