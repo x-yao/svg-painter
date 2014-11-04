@@ -26,6 +26,9 @@
 svg{
 	shape-rendering:optimizeSpeed;
 }
+svg rect{
+	shape-rendering:crispEdges;
+}
 .svg1{
 	margin: 0 auto;
 	width: 320px;
