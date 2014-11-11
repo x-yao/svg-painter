@@ -11,28 +11,31 @@
 		var strokeLabel = paperC.text(50, 90, "线条颜色").attr('fill', '#999');
 		var fillLabel = paperC.text(135, 90, "填充颜色").attr('fill', '#999');
 		var colorBtn = paperC.set();
-		var strokeInput = paperC.rect(37, 60, 20, 20).attr('fill', '#CCC').data('uiType','stroke');
-		var fillInput = paperC.rect(127, 60, 20, 20).attr('fill', '#CCC').data('uiType','fill');
-		colorBtn.push(strokeInput,fillInput);
+		var strokeInput = paperC.rect(37, 60, 20, 20).attr('fill', '#CCC').data('uiType', 'stroke');
+		var fillInput = paperC.rect(127, 60, 20, 20).attr('fill', '#CCC').data('uiType', 'fill');
+		colorBtn.push(strokeInput, fillInput);
 		colorBtn.hover(function() {
 			this.attr({
-				stroke : "#3366FF"
+				stroke: "#3366FF"
 			});
 		}, function() {
 			this.attr({
-				stroke : "#000"
+				stroke: "#000"
 			})
 		});
 		var colorType;
 		var glow;
 		colorBtn.click(function(event) {
 			glow ? glow.remove() : "";
-			glow = this.glow({color:'#3366FF',width:5});
+			glow = this.glow({
+				color: '#3366FF',
+				width: 5
+			});
 			colorType = this.data('uiType');
 		});
 		paperC.setStart()
 		$.each(colors, function(index, val) {
-			var x = index * 20+2;
+			var x = index * 20 + 2;
 			var y = 5;
 			while (x >= 200) {
 				x = x - 200;
@@ -68,10 +71,10 @@
 		});
 		colorBox.click(function(event) {
 			var color = this.data('color') ? this.data('color') : null;
-			if(colorType == 'stroke'){
+			if (colorType == 'stroke') {
 				strokeInput.attr('fill', color);
 				strokeColor = color;
-			}else if(colorType == 'fill'){
+			} else if (colorType == 'fill') {
 				fillInput.attr('fill', color);
 				fillColor = color;
 			}
@@ -196,3 +199,11 @@
 			strokeWidthNum = a;
 		};
 	};
+
+	function buttonSelect() {
+		var paper = Raphael($(".svg7")[0],200,400);
+		var bac = paper.rect(0,0,200,400).attr({
+			fill: "#FFF",
+			stroke: "#999"
+		});
+	}

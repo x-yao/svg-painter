@@ -266,4 +266,5 @@ $(document).ready(function() {
 	}
 	drowBtn();
 	inputView();
+	buttonSelect();
 });
